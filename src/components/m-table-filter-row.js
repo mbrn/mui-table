@@ -16,11 +16,11 @@ import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
 import DateFnsUtils from "@date-io/date-fns";
 import {
-  MuiPickersUtilsProvider,
+  LocalizationProvider,
   TimePicker,
   DatePicker,
   DateTimePicker,
-} from "@material-ui/pickers";
+} from "@material-ui/lab";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -126,6 +126,7 @@ class MTableFilterRow extends React.Component {
     const FilterIcon = this.props.icons.Filter;
     return (
       <TextField
+        variant="standard"
         style={columnDef.type === "numeric" ? { float: "right" } : {}}
         type={columnDef.type === "numeric" ? "number" : "search"}
         value={columnDef.tableData.filterValue || ""}
@@ -158,6 +159,7 @@ class MTableFilterRow extends React.Component {
     const onDateInputChange = (date) =>
       this.props.onFilterChanged(columnDef.tableData.id, date);
     const pickerProps = {
+      renderInput: (props) => <TextField {...props} />,
       value: columnDef.tableData.filterValue || null,
       onChange: onDateInputChange,
       placeholder: this.getLocalizedFilterPlaceHolder(columnDef),
@@ -173,12 +175,12 @@ class MTableFilterRow extends React.Component {
       dateInputElement = <TimePicker {...pickerProps} />;
     }
     return (
-      <MuiPickersUtilsProvider
-        utils={DateFnsUtils}
+      <LocalizationProvider
+        dateAdapter={DateFnsUtils}
         locale={this.props.localization.dateTimePickerLocalization}
       >
         {dateInputElement}
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     );
   };
 

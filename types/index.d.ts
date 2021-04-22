@@ -340,6 +340,7 @@ export interface Options<RowData extends object> {
   showEmptyDataSourceMessage?: boolean;
   showFirstLastPageButtons?: boolean;
   showSelectAllCheckbox?: boolean;
+  showSelectGroupCheckbox?: boolean;
   showTitle?: boolean;
   showTextRowsSelected?: boolean;
   search?: boolean;
